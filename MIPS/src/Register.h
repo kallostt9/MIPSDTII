@@ -13,8 +13,9 @@ SC_MODULE(Register){
 	//Ports
 	sc_in <sc_lv<5>> ReadRegister1, ReadRegister2, WriteRegister;
 	sc_in <sc_lv<32>> WriteData;
-	sc_in <sc_logic> RegWrite, clock;
+	sc_in <sc_logic> RegWrite, sig;
 	sc_out <sc_lv<32>> ReadData1, ReadData2;
+
 
 	typedef sc_lv<32> registerArray[32];
 	sc_signal<registerArray> array_register;
@@ -59,10 +60,6 @@ SC_MODULE(Register){
 		ReadData1 = array_register[ReadRegister1.read().to_uint()];
 		ReadData2 = array_register[ReadRegister2.read().to_uint()];
 		SC_METHOD(registerM);
-		sensitive << clock;
+		sensitive << sig;
 	}
 };
-
-
-
-
