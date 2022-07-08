@@ -5,8 +5,6 @@
  *      Author: jean
  */
 
-#ifndef REGISTER_H_
-#define REGISTER_H_
 #include <stdio.h>
 #include <systemc.h>
 
@@ -23,7 +21,7 @@ SC_MODULE(Register){
 	void registerM();
 
 	SC_CTOR(Register) {
-		SC_METHOD(registerM);
+
 		array_register = {
 				0x00000000,	// $zero
 				0x11111111,	// $at
@@ -58,8 +56,9 @@ SC_MODULE(Register){
 				0xeeeeeeee,	// $fp
 				0xffffffff, // $ra
 				};
-		ReadData1 = array_register[ReadRegister1.read().to_int()];
-		ReadData2 = array_register[ReadRegister2.read().to_int()];
+		ReadData1 = array_register[ReadRegister1.read().to_uint()];
+		ReadData2 = array_register[ReadRegister2.read().to_uint()];
+		SC_METHOD(registerM);
 		sensitive << clock;
 	}
 };
@@ -67,4 +66,3 @@ SC_MODULE(Register){
 
 
 
-#endif /* REGISTER_H_ */

@@ -10,7 +10,7 @@
 
 void Register::registerM(void) {
 	if(clock.read() == sc_logic_0 && RegWrite.read() == sc_logic_1){
-		array_register[WriteRegister.read().to_int()] = WriteData;
+		(sc_dt::sc_lv<32>)array_register[WriteRegister.read().to_uint()] = WriteData;
 	}
 }
 
