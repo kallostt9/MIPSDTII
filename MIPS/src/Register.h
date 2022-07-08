@@ -13,14 +13,12 @@
 
 SC_MODULE(Register){
 	//Ports
-	int b = 32;
-	int w = 5;
-	sc_in <sc_lv<w>> ReadRegister1, ReadRegister2, WriteRegister;
-	sc_in <sc_lv<b>> WriteData;
+	sc_in <sc_lv<5>> ReadRegister1, ReadRegister2, WriteRegister;
+	sc_in <sc_lv<32>> WriteData;
 	sc_in <sc_logic> RegWrite, clock;
-	sc_out <sc_lv<b>> ReadData1, ReadData2;
+	sc_out <sc_lv<32>> ReadData1, ReadData2;
 
-	typedef sc_lv<b> registerArray[2**w-1];
+	typedef sc_lv<32> registerArray[32];
 	sc_signal<registerArray> array_register;
 	void registerM();
 
