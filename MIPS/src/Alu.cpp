@@ -9,7 +9,7 @@
 #include "Alu.h"
 
 void Alu::aluM(void) {
-	switch ((sc_int<4>)alu_control.read()){
+	switch (alu_control.read().to_uint()){
 		case 0x0:
 			alu_result.write((a.read() & b.read()));
 			//a and b
@@ -32,7 +32,7 @@ void Alu::aluM(void) {
 			}else alu_result = 0x00000000;
 			//a>b
 			break;
-		case -4:
+		case 0xc:
 			alu_result.write(b.read() ^ a.read());
 			//XOR
 			break;
