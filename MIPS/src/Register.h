@@ -4,7 +4,8 @@
  *  Created on: Jun 21, 2022
  *      Author: jean
  */
-
+#ifndef ALU_H_
+#define ALU_H_
 #include <stdio.h>
 #include <systemc.h>
 
@@ -16,12 +17,12 @@ SC_MODULE(Register){
 	sc_in <sc_logic> RegWrite, sig;
 	sc_out <sc_lv<32>> ReadData1, ReadData2;
 
-	//sc_lv<32> reg[32];
+
 	//typedef sc_lv<32> registerArray[32];
 	sc_lv<32> array_register[32];
 	void registerM();
 
-	SC_CTOR(Register) {
+	SC_CTOR(Register){
 		array_register[0] = 0x00000000;	// $zero
 		array_register[1] = 0x11111111;	// $at
 		array_register[2] = 0x22222222;	// $v0
@@ -55,9 +56,9 @@ SC_MODULE(Register){
 		array_register[30] = 0xeeeeeeee;	// $fp
 		array_register[31] = 0xffffffff; // $ra
 
-		ReadData1 = array_register[ReadRegister1.read().to_uint()];
-		ReadData2 = array_register[ReadRegister2.read().to_uint()];
 		SC_METHOD(registerM);
-		sensitive << sig;
+		sensitive << RegWrite << sig;
 	}
 };
+
+#endif /* ALU_H_ */
