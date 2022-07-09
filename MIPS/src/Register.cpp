@@ -10,7 +10,7 @@
 
 void Register::registerM(void) {
 	if(sig.read() == sc_logic_0 && RegWrite.read() == sc_logic_1){
-		(sc_dt::sc_lv<32>)array_register[WriteRegister.read().to_uint()] = WriteData;
+		array_register[WriteRegister.read().to_uint()] = WriteData;
 	}
 }
 
@@ -33,11 +33,18 @@ int sc_main(int argc, char* argv[]){
 	registerInst.RegWrite(RegWrite);
 	registerInst.sig(sig);
 
-	sc_trace(trace_file, WriteData, "RegisterData");
 	sc_trace(trace_file, sig, "sig");
-	sc_trace(trace_file, RegWrite, "ALU_RESULT");
+	sc_trace(trace_file, RegWrite, "RegWrite");
+	sc_trace(trace_file, ReadData1, "ReadData1");
+	sc_trace(trace_file, ReadData2, "ReadData2");
 
-
+	sc_start(10,SC_NS);
+	sig = sc_logic_0;
+	RegWrite = sc_logic_0;
+	ReadRegister1 = "01111";
+	ReadRegister2 = "10000";
+	cout << ReadData1 << ReadData2;
+	sc_start(10, SC_NS);
 
 	return 0;
 }
