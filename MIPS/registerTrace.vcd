@@ -1,5 +1,5 @@
 $date
-     Jul 09, 2022       15:12:44
+     Jul 09, 2022       15:35:48
 $end
 
 $version
@@ -27,21 +27,22 @@ All initial values are dumped below at time 0 sec = 0 timescale units.
 $end
 
 $dumpvars
-xaaaaa
-xaaaab
-b11111111111111111111111111111111 aaaac
-b11111111111111111111111111111111 aaaad
-bXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX aaaae
-bXXXXX aaaaf
-bXXXXX aaaag
-bXXXXX aaaah
+1aaaaa
+1aaaab
+b10011001100110011001100110011001 aaaac
+b10001000100010001000100010001000 aaaad
+b1000000010000000100000001 aaaae
+b11001 aaaaf
+b1001 aaaag
+b11000 aaaah
 $end
 
 #10
 0aaaaa
-0aaaab
-b10011001100110011001100110011001 aaaac
-b10001000100010001000100010001000 aaaad
-b1001 aaaag
-b11000 aaaah
+b10011001100110011001100110011001 aaaad
+b11001 aaaah
+
+#20
+1aaaaa
+b1000000010000000100000001 aaaad
 

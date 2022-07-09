@@ -12,8 +12,8 @@ void Register::registerM(void) {
 
 	ReadData1 = array_register[ReadRegister1.read().to_uint()];
 	ReadData2 = array_register[ReadRegister2.read().to_uint()];
-	if(sig.read() == sc_logic_0 && RegWrite.read() == sc_logic_1){
-		array_register[WriteRegister.read().to_uint()] = WriteData;
+	if(sig == sc_logic_0 && RegWrite == sc_logic_1){
+		array_register[WriteRegister.read().to_uint()] = WriteData.read();
 	}
 }
 
@@ -45,14 +45,21 @@ int sc_main(int argc, char* argv[]){
 	sc_trace(trace_file, ReadRegister1, "ReadRegister1");
 	sc_trace(trace_file, ReadRegister2, "ReadRegister2");
 
-	sc_start(10, SC_NS);
-	sig = sc_logic_0;
+	sig = sc_logic_1;
 	RegWrite = sc_logic_0;
 	ReadRegister1 = 00111;
 	ReadRegister2 = 11000;
+	WriteData = 0x01010101;
+	WriteRegister = 11001;
+	RegWrite = sc_logic_1;
 	sc_start(10, SC_NS);
 
-	cout << ReadData1 << endl << ReadData2;
+	sig = sc_logic_0;
+	ReadRegister2 = 11001;
+	sc_start(10, SC_NS);
+
+	sig = sc_logic_1;
+	sc_start(10, SC_NS);
 
 	return 0;
 }

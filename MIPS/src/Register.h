@@ -57,7 +57,7 @@ SC_MODULE(Register){
 		array_register[31] = 0xffffffff; // $ra
 
 		SC_METHOD(registerM);
-		sensitive << RegWrite << sig;
+		sensitive << RegWrite << sig << WriteData << ReadRegister1 << ReadRegister2 << WriteRegister;
 	}
 };
 
