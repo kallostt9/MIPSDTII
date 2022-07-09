@@ -58,7 +58,7 @@ void Alu_control::alu_controlM (void){
 			break;
 	}
 }
-
+/*
 int sc_main(int argc, char* argv[]){
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("alu_control");
 	trace_file->set_time_unit(1, SC_NS);
@@ -102,4 +102,4 @@ int sc_main(int argc, char* argv[]){
 
 	return 0;
 }
-
+*/
