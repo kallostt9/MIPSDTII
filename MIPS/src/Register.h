@@ -4,8 +4,8 @@
  *  Created on: Jun 21, 2022
  *      Author: jean
  */
-#ifndef ALU_H_
-#define ALU_H_
+#ifndef REGISTER_H_
+#define REGISTER_H_
 #include <stdio.h>
 #include <systemc.h>
 
@@ -61,4 +61,4 @@ SC_MODULE(Register){
 	}
 };
 
-#endif /* ALU_H_ */
+#endif /* REGISTER_H_ */
