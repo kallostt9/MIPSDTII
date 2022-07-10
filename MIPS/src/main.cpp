@@ -5,6 +5,7 @@
  *      Author: jean
  */
 
-
+#include <stdio.h>
+#include <systemc.h>
 
 
