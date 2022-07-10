@@ -3,6 +3,18 @@
  *
  *  Created on: Jul 10, 2022
  *      Author: jean
+ *
+ *
+ *      reg_dest: should use rd as detsination register
+ *		jump: should jump to address
+ *		branch: should branch off current address
+ *		mem_read: should read from data memory
+ *		mem_to_reg: should write value from data memory to a register
+ *		mem_write: should write to data memory
+ *		alu_src: should use immediate as second parameter of alu
+ *		reg_write: should write to a register
+ * 		alu_op: command to use in alu control
+ *
  */
 
 #ifndef CONTROL_H_
