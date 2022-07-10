@@ -12,7 +12,7 @@
 void Adder::adderM(void) {
 	z.write( (sc_uint<32>)y.read()+(sc_uint<32>)x.read());
 }
-
+/*
 int sc_main(int argc, char* argv[]){
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("adderTrace");
 	trace_file->set_time_unit(1, SC_NS);
@@ -38,4 +38,4 @@ int sc_main(int argc, char* argv[]){
 	sc_start(10, SC_NS);
 
 	return 0;
-}
+}*/
