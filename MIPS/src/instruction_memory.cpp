@@ -29,11 +29,12 @@ inline void instructionMemory::instructionMemoryM(void) {
 				break;
 			}else j = i;
 		}
-		cout << j << endl;
+		cout << j<< endl;
 	}
 
 	if (j >= 1) {
-		last_instr_address = (sc_lv<32> ) ((uint)(j*4));
+		last_instr_address = (sc_lv<32>)((uint)(j*4));
+		cout << last_instr_address;
 	} else
 		last_instr_address = 0x00000000;
 	line.close();

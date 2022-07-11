@@ -22,7 +22,7 @@
 #include "main.h"
 
 void main::mainM(void){
-	last_instr_address = 0x00000000;
+	//last_instr_address = 0x00000000;
 	switch (s) {
 	case running:
 		en = ck;
@@ -95,8 +95,8 @@ int sc_main(int argc, char* argv[]){
 	shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
 	shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
 	shifter1Y = 0x00000004;
-
-	read_data_1 = read_data_2 = write_data = extended_immediate = shifted_immediate = alu_in_2 = alu_result = last_instr_address =
+	last_instr_address = 0x00000000;
+	read_data_1 = read_data_2 = write_data = extended_immediate = shifted_immediate = alu_in_2 = alu_result =
 	incremented_address = add2_result = mux4_result = concatenated_pc_and_jump_address = mem_read_data = 0x00000000;
 	en = sc_logic_0;
 	reg_dest = jump = branch = mem_read = mem_to_reg = mem_write = alu_src = reg_write = alu_zero = branch_and_alu_zero = sc_logic_0;
@@ -106,6 +106,8 @@ int sc_main(int argc, char* argv[]){
 	mainInst.ck(ck);
 	mainInst.instr_address(instr_address);
 	mainInst.last_instr_address(last_instr_address);
+
+
 	/*
 
 	mainInst.next_address(next_address);
@@ -158,13 +160,13 @@ int sc_main(int argc, char* argv[]){
 
 	pc pcInst("pcInst");
 	pcInst.ck(en);
-	pcInst.address.write(instr_address);
+	pcInst.current_address(mainInst.instr_address);
 	pcInst.address_to_load(next_address);
 
 	instructionMemory instructionMemoryInst("instructionMemoryInst");
-	instructionMemoryInst.read_address(instr_address);
+	instructionMemoryInst.read_address(pcInst.current_address);
 	instructionMemoryInst.instruction(instruction);
-	instructionMemoryInst.last_instr_address(last_instr_address);
+	instructionMemoryInst.last_instr_address(mainInst.last_instr_address);
 
 	control controlInst1("controlInst1");
 	controlInst1.opcode(opcode);
@@ -270,6 +272,22 @@ int sc_main(int argc, char* argv[]){
 	memoryInst.MemRead(mem_read);
 	memoryInst.ck(en);
 	memoryInst.read_data(mem_read_data);
+
+	//testbench
+	sc_trace(trace_file, mem_write, "mem_write");
+	sc_trace(trace_file, en, "en");
+	sc_trace(trace_file, instruction, "instruction");
+	sc_trace(trace_file, last_instr_address, "lastinstructionaddress");
+
+
+
+	sc_start(10,SC_NS);
+	ck = sc_logic_0;
+	sc_start(10,SC_NS);
+	ck = sc_logic_1;
+	sc_start(10,SC_NS);
+	ck = sc_logic_0;
+	sc_start(10,SC_NS);
 
 	return 0;
 }
