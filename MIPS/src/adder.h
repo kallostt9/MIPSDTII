@@ -10,12 +10,12 @@
 #include <stdio.h>
 #include <systemc.h>
 
-SC_MODULE(Adder){
+SC_MODULE(adder){
 	sc_in <sc_lv<32>> x,y;
 	sc_out <sc_lv<32>> z;
 
 	void adderM();
-	SC_CTOR(Adder){
+	SC_CTOR(adder){
 		SC_METHOD(adderM);
 		sensitive << x << y;
 	}

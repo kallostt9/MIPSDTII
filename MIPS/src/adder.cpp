@@ -9,7 +9,7 @@
 #include <systemc.h>
 #include "adder.h"
 
-void Adder::adderM(void) {
+void adder::adderM(void) {
 	z.write( (sc_uint<32>)y.read()+(sc_uint<32>)x.read());
 }
 /*
@@ -19,7 +19,7 @@ int sc_main(int argc, char* argv[]){
 
 	sc_signal <sc_lv<32>> x,y,z;
 
-	Adder adderInst("adderInst");
+	adder adderInst("adderInst");
 
 	adderInst.x(x);
 	adderInst.y(y);

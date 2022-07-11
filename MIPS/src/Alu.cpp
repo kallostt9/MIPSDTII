@@ -4,7 +4,6 @@
  *  Created on: Jun 21, 2022
  *      Author: jean
  */
-#include <stdio.h>
 #include <systemc.h>
 #include "Alu.h"
 
@@ -41,14 +40,14 @@ void Alu::aluM(void) {
 			//null für alle Kontrollerwerte ohne Operation
 			break;
 	}
-	cout<<(sc_int<4>)alu_control.read() << " ";
+	//cout<<(sc_int<4>)alu_control.read() << " ";
 
 	if (alu_result.read() == 0x00000000) {
 		zero = sc_logic_1;
 	} else
 		zero = sc_logic_0;
 }
-/*
+
 int sc_main(int argc, char* argv[]){
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("aluTrace");
 	trace_file->set_time_unit(1, SC_NS);
@@ -99,4 +98,4 @@ int sc_main(int argc, char* argv[]){
 	sc_start(10, SC_NS);
 
 	return 0;
-}*/
+}

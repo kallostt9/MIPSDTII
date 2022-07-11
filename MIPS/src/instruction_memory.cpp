@@ -32,8 +32,8 @@ void instructionMemory::instructionMemoryM(void) {
 		cout << j << endl;
 	}
 
-	if (j > 1) {
-		last_instr_address = (sc_lv<32> ) ((uint) (j - 1) * 4);
+	if (j >= 1) {
+		last_instr_address = (sc_lv<32> ) ((uint)(j*4));
 	} else
 		last_instr_address = 0x00000000;
 	line.close();
@@ -67,4 +67,5 @@ int sc_main(int argc, char *argv[]) {
 
 	return 0;
 }
+
 */

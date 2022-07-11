@@ -1,5 +1,5 @@
 $date
-     Jul 10, 2022       21:07:10
+     Jul 11, 2022       13:47:11
 $end
 
 $version
@@ -24,7 +24,7 @@ $end
 $dumpvars
 b1 aaaaa
 b100000000010010000000000000110 aaaab
-b1100 aaaac
+b10100 aaaac
 $end
 
 #10
