@@ -8,7 +8,7 @@
 #include <systemc.h>
 #include "mux.h"
 
-void mux::muxM(void){
+inline void mux::muxM(void){
 	if(s == sc_logic_0){
 		z.write(x.read());
 	}else z.write(y.read());

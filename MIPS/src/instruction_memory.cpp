@@ -13,7 +13,7 @@
 
 using namespace std;
 
-void instructionMemory::instructionMemoryM(void) {
+inline void instructionMemory::instructionMemoryM(void) {
 
 	line.open("instructions.txt");
 //	std::fstream line;

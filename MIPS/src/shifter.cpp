@@ -8,7 +8,7 @@
 #include <systemc.h>
 #include "shifter.h"
 
-void shifter::shifterM(void){
+inline void shifter::shifterM(void){
 	temp = x;
 	temp.range(n2-1, k) = temp.range(n1-1,0);
 	temp.range(1,0) = 0;

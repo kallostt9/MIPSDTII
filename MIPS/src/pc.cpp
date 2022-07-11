@@ -8,7 +8,7 @@
 #include <systemc.h>
 #include "pc.h"
 
-void pc::pcM(void){
+inline void pc::pcM(void){
 	address = 0x00000000;
 
 	current_address.write(address.read());

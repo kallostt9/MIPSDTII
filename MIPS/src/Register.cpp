@@ -8,7 +8,7 @@
 #include <systemc.h>
 #include "Register.h"
 
-void Register::registerM(void) {
+inline void Register::registerM(void) {
 
 	ReadData1 = array_register[ReadRegister1.read().to_uint()];
 	ReadData2 = array_register[ReadRegister2.read().to_uint()];

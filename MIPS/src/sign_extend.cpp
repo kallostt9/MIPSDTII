@@ -8,7 +8,7 @@
 #include <systemc.h>
 #include "sign_extend.h"
 
-void sign_extend::sign_extendM(void){
+inline void sign_extend::sign_extendM(void){
 	y.write((sc_lv<32>)0x00000000 ^ x.read());
 }
 /*

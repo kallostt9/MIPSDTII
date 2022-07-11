@@ -8,7 +8,7 @@
 #include <systemc.h>
 #include "control.h"
 
-void control::controlM (void){
+inline void control::controlM (void){
 	switch(opcode.read().to_uint()){
 		case 0x0:
 			reg_dest = sc_logic_1;

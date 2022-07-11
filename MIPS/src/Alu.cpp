@@ -7,7 +7,7 @@
 #include <systemc.h>
 #include "Alu.h"
 
-void Alu::aluM(void) {
+inline void Alu::aluM(void) {
 	switch (alu_control.read().to_uint()){
 		case 0x0:
 			alu_result.write((a.read() & b.read()));
@@ -47,7 +47,7 @@ void Alu::aluM(void) {
 	} else
 		zero = sc_logic_0;
 }
-
+/*
 int sc_main(int argc, char* argv[]){
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("aluTrace");
 	trace_file->set_time_unit(1, SC_NS);
@@ -99,3 +99,4 @@ int sc_main(int argc, char* argv[]){
 
 	return 0;
 }
+*/

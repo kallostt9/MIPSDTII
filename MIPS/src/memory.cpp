@@ -9,7 +9,7 @@
 #include <systemc.h>
 #include "memory.h"
 
-void memory::memoryM(void){
+inline void memory::memoryM(void){
 	if(MemRead == sc_logic_1){
 		read_data.write(array_memory[address.read().to_uint()]);
 	}else read_data = 0x00000000;

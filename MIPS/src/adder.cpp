@@ -9,7 +9,7 @@
 #include <systemc.h>
 #include "adder.h"
 
-void adder::adderM(void) {
+inline void adder::adderM(void) {
 	z.write( (sc_uint<32>)y.read()+(sc_uint<32>)x.read());
 }
 /*

@@ -19,7 +19,7 @@
 #include <systemc.h>
 #include "alu_control.h"
 
-void Alu_control::alu_controlM (void){
+inline void Alu_control::alu_controlM (void){
 	cout << alu_op.read().to_uint() << endl;
 	switch (alu_op.read().to_uint()) {
 		case 0x0:
