@@ -37,7 +37,7 @@ inline void Alu::aluM(void) {
 			break;
 		default:
 			alu_result=0x00000000;
-			//null für alle Kontrollerwerte ohne Operation
+			//null für alle Kontrollerwerte ohne zugewiesene Operation
 			break;
 	}
 	//cout<<(sc_int<4>)alu_control.read() << " ";
@@ -46,7 +46,7 @@ inline void Alu::aluM(void) {
 		zero = sc_logic_1;
 	} else
 		zero = sc_logic_0;
-	cout << a << "Input a" << b << "Input b" <<endl;
+	cout << a << " Input a " << b << " Input b " << alu_result << " Output "<< alu_control.read().to_uint()<< " alu_control "<< zero << " zero "<< endl;
 }
 /*
 int sc_main(int argc, char* argv[]){

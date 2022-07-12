@@ -19,7 +19,7 @@ SC_MODULE(Alu_control){
 	void alu_controlM();
 	SC_CTOR(Alu_control) {
 		SC_METHOD(alu_controlM);
-		sensitive << alu_op << funct;
+		sensitive << alu_op << funct << alu_control_funct;
 	}
 };
 

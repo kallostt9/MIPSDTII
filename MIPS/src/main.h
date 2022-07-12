@@ -18,14 +18,13 @@ enum state {
 SC_MODULE(main) {
 	sc_in<sc_lv<32>> instr_address;
 	sc_in<sc_lv<32>> last_instr_address;
-	sc_in<sc_logic> ck;
-	sc_signal<sc_logic> en;
+	sc_in<bool> ck;
+	sc_out<sc_logic> en;
 	state s;
 	void mainM();
 
 	SC_CTOR(main) {
 
-		en = sc_logic_0;
 		s = loading;
 		SC_METHOD(mainM);
 		sensitive << ck;

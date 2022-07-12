@@ -24,13 +24,15 @@
 void main::mainM(void){
 	switch (s) {
 	case running:
-		en = ck;
+		if(ck == 0)
+			en = sc_logic_0;
+		else en = sc_logic_1;
 		break;
 	default:
 		en = sc_logic_0;
 		break;
 	}
-	if (ck.event() and ck == sc_logic_1) {
+	if (ck.event() and ck == true) {
 		switch (s) {
 			case loading:
 				s = running;
@@ -47,11 +49,12 @@ void main::mainM(void){
 }
 
 int sc_main(int argc, char* argv[]){
+	 sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated", sc_core::SC_DO_NOTHING );
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("mainTrace");
 	trace_file->set_time_unit(1, SC_NS);
 	//ports
-
-	sc_signal<sc_logic> ck;
+	sc_clock ck("ck", SC_NS&10, 0.5, 0, true);
+	//sc_signal<sc_logic> ck;
 	sc_signal<sc_lv<32>> instr_address, next_address, instruction;
 	sc_signal<sc_lv<32>> read_data_1, read_data_2, write_data, extended_immediate, shifted_immediate, alu_in_2, alu_result,
 	last_instr_address, incremented_address, add2_result, mux4_result, concatenated_pc_and_jump_address, mem_read_data;
@@ -79,8 +82,10 @@ int sc_main(int argc, char* argv[]){
 	reg_dest = jump = branch = mem_read = mem_to_reg = mem_write = alu_src = reg_write = alu_zero = branch_and_alu_zero = sc_logic_0;
 */
 
+
 	main mainInst("mainInst");
 	//port binding
+	mainInst.en(en);
 	mainInst.ck(ck);
 	mainInst.instr_address(instr_address);
 	mainInst.last_instr_address(last_instr_address);
@@ -253,8 +258,13 @@ int sc_main(int argc, char* argv[]){
 	sc_trace(trace_file, read_data_1, "alu_in_1");
 	sc_trace(trace_file, reg_write, "reg_write");
 
-	//add standard values
-	opcode.write(instruction.read().range(31, 26));
+//	//add standard values
+	instr_address = "00000000000000000000000000000000";
+	last_instr_address = 	"00000000000000000000000000000000";
+	sc_signal <sc_lv<6>> tempop;
+	tempop = instruction.read().range(31,26);
+	opcode="000000";
+	en = sc_logic_0;
 	rs.write(instruction.read().range(25, 21));
 	rt.write(instruction.read().range(20, 16));
 	rd.write(instruction.read().range(15, 11));
@@ -267,7 +277,7 @@ int sc_main(int argc, char* argv[]){
 	shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
 	shifter1Y = "00000000000000000000000000000100";
 
-	instr_address = "00000000000000000000000000000000";
+
 	read_data_1 = "00000000000000000000000000000000";
 	read_data_2 =  "00000000000000000000000000000000";
 	write_data = "00000000000000000000000000000000";
@@ -275,7 +285,7 @@ int sc_main(int argc, char* argv[]){
 	shifted_immediate = "00000000000000000000000000000000";
 	alu_in_2 = "00000000000000000000000000000000";
 	alu_result ="00000000000000000000000000000000";
-	last_instr_address = 	"00000000000000000000000000000000";
+
 	incremented_address = 	"00000000000000000000000000000000";
 	add2_result = 	"00000000000000000000000000000000";
 	mux4_result = 	"00000000000000000000000000000000";
@@ -293,18 +303,13 @@ int sc_main(int argc, char* argv[]){
 	alu_zero = sc_logic_0;
 	branch_and_alu_zero = sc_logic_0;
 
+	//ck = clock
+
 	branch_and_alu_zero.write(branch.read() & alu_zero.read());
 	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
 
-	ck = sc_logic_1;
-	sc_start(10,SC_NS);
-	ck = sc_logic_0;
-	sc_start(10,SC_NS);
-	ck = sc_logic_0;
-	sc_start(10,SC_NS);
-	ck = sc_logic_1;
-	sc_start(10,SC_NS);
-	ck = sc_logic_0;
+	//ck = sc_logic_1;
+	sc_start(100, SC_NS);
 
 	return 0;
 }
