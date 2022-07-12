@@ -20,7 +20,7 @@
 #include "alu_control.h"
 
 inline void Alu_control::alu_controlM (void){
-	cout << alu_op.read().to_uint() << endl;
+	//cout << alu_op.read().to_uint() << endl;
 	switch (alu_op.read().to_uint()) {
 		case 0x0:
 			alu_control_funct = "0010";

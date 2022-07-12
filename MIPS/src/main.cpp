@@ -106,8 +106,8 @@ int sc_main(int argc, char* argv[]){
 	main mainInst("mainInst");
 	//port binding
 	mainInst.ck(ck);
-	//mainInst.instr_address(instr_address);
-	//mainInst.last_instr_address(last_instr_address);
+	mainInst.instr_address(instr_address);
+	mainInst.last_instr_address(last_instr_address);
 
 
 	/*
@@ -310,7 +310,6 @@ int sc_main(int argc, char* argv[]){
 	concatenated_pc_and_jump_address =	"00000000000000000000000000000000";
 	mem_read_data = "00000000000000000000000000000000";
 
-
 	reg_dest = sc_logic_0;
 	jump = sc_logic_0;
 	branch = sc_logic_0;
@@ -325,7 +324,7 @@ int sc_main(int argc, char* argv[]){
 	//sc_start(10, SC_NS);
 	branch_and_alu_zero.write(branch.read() & alu_zero.read());
 	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
-	en = sc_logic_0;
+	//en = sc_logic_0;
 	ck = sc_logic_1;
 	sc_start(10,SC_NS);
 	ck = sc_logic_0;
@@ -337,7 +336,7 @@ int sc_main(int argc, char* argv[]){
 	ck = sc_logic_0;
 	//cout << endl <<instr_address;
 	//instr_address = 0x00000000;
-	sc_start(10,SC_NS);
+	//sc_start(10,SC_NS);
 
 	return 0;
 }
