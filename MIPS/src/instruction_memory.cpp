@@ -28,17 +28,20 @@ inline void instructionMemory::instructionMemoryM(void) {
 			if (line.eof()) {
 				break;
 			}else j = i;
-		}
-		cout << j<< endl;
+		};
+		//cout << j<< endl;
 	}
 
 	if (j >= 1) {
 		last_instr_address = (sc_lv<32>)((uint)(j*4));
-		cout << last_instr_address;
+		//cout << last_instr_address<<endl;
 	} else
 		last_instr_address = 0x00000000;
 	line.close();
+
+	cout<<instruction<<endl<<read_address << "awdf";
 	instruction = array_data[read_address.read().to_uint()];
+	//cout<<instruction<<"lol";
 }
 /*
 int sc_main(int argc, char *argv[]) {

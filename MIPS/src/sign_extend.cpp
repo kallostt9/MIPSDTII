@@ -9,7 +9,9 @@
 #include "sign_extend.h"
 
 inline void sign_extend::sign_extendM(void){
-	y.write((sc_lv<32>)0x00000000 ^ x.read());
+	tempExt = tempExt ^ x.read();
+	y=tempExt;
+	//cout<< y << "extending";
 }
 /*
 int sc_main(int argc, char* argv[]){

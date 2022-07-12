@@ -16,7 +16,7 @@ enum state {
 };
 
 SC_MODULE(main) {
-	sc_out<sc_lv<32>> last_instr_address, instr_address;
+	sc_signal<sc_lv<32>> instr_address, last_instr_address;
 	sc_in<sc_logic> ck;
 	sc_signal<sc_logic> en;
 	state s;

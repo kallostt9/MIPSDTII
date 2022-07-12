@@ -10,7 +10,7 @@
 #include "adder.h"
 
 inline void adder::adderM(void) {
-	z.write( (sc_uint<32>)y.read()+(sc_uint<32>)x.read());
+	z.write( y.read().to_uint()+x.read().to_uint());
 }
 /*
 int sc_main(int argc, char* argv[]){

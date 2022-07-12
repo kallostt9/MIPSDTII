@@ -22,7 +22,7 @@
 #include "main.h"
 
 void main::mainM(void){
-	//last_instr_address = 0x00000000;
+	//instr_address = 0x00000000;
 	switch (s) {
 	case running:
 		en = ck;
@@ -91,21 +91,23 @@ int sc_main(int argc, char* argv[]){
 	sc_signal<sc_logic> reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write, alu_zero, branch_and_alu_zero;
 	sc_signal<sc_logic> en;
 	sc_signal <sc_lv<32>> shifter2X, shifter2Y, shifter1Y;
-
+/*
 	shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
 	shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
 	shifter1Y = 0x00000004;
 	last_instr_address = 0x00000000;
-	read_data_1 = read_data_2 = write_data = extended_immediate = shifted_immediate = alu_in_2 = alu_result =
+	instr_address.write(0x00000000);
+
+	read_data_1 = read_data_2 = instr_address = write_data = extended_immediate = shifted_immediate = alu_in_2 = alu_result =
 	incremented_address = add2_result = mux4_result = concatenated_pc_and_jump_address = mem_read_data = 0x00000000;
 	en = sc_logic_0;
 	reg_dest = jump = branch = mem_read = mem_to_reg = mem_write = alu_src = reg_write = alu_zero = branch_and_alu_zero = sc_logic_0;
-
+*/
 	main mainInst("mainInst");
 	//port binding
 	mainInst.ck(ck);
-	mainInst.instr_address(instr_address);
-	mainInst.last_instr_address(last_instr_address);
+	//mainInst.instr_address(instr_address);
+	//mainInst.last_instr_address(last_instr_address);
 
 
 	/*
@@ -148,7 +150,7 @@ int sc_main(int argc, char* argv[]){
 	mainInst.alu_zero(alu_zero);
 	mainInst.branch(branch_and_alu_zero);
 	mainInst.en(en);
-*/
+
 	opcode.write(instruction.read().range(31, 26));
 	rs.write(instruction.read().range(25, 21));
 	rt.write(instruction.read().range(20, 16));
@@ -157,16 +159,16 @@ int sc_main(int argc, char* argv[]){
 	funct.write(instruction.read().range(5, 0));
 	immediate.write(instruction.read().range(15, 0));
 	jump_address.write(instruction.read().range(25, 0));
-
+*/
 	pc pcInst("pcInst");
 	pcInst.ck(en);
-	pcInst.current_address(mainInst.instr_address);
 	pcInst.address_to_load(next_address);
+	pcInst.current_address(instr_address);
 
 	instructionMemory instructionMemoryInst("instructionMemoryInst");
-	instructionMemoryInst.read_address(pcInst.current_address);
+	instructionMemoryInst.read_address(instr_address);
 	instructionMemoryInst.instruction(instruction);
-	instructionMemoryInst.last_instr_address(mainInst.last_instr_address);
+	instructionMemoryInst.last_instr_address(last_instr_address);
 
 	control controlInst1("controlInst1");
 	controlInst1.opcode(opcode);
@@ -181,7 +183,6 @@ int sc_main(int argc, char* argv[]){
 	controlInst1.alu_op(alu_op);
 
 	mux5b muxInst1("muxInst1");
-	muxInst1.n=5;
 	muxInst1.x(rt);
 	muxInst1.y(rd);
 	muxInst1.s(reg_dest);
@@ -207,7 +208,6 @@ int sc_main(int argc, char* argv[]){
 	signExtendInst.y(extended_immediate);
 
 	mux muxInst2("muxInst2");
-	muxInst2.n=32;
 	muxInst2.x(read_data_2);
 	muxInst2.y(extended_immediate);
 	muxInst2.s(alu_src);
@@ -221,7 +221,6 @@ int sc_main(int argc, char* argv[]){
 	aluInst1.alu_result(alu_result);
 
 	mux muxInst3("muxInst3");
-	muxInst3.n=32;
 	muxInst3.x(alu_result);
 	muxInst3.y(mem_read_data);
 	muxInst3.s(mem_to_reg);
@@ -236,10 +235,9 @@ int sc_main(int argc, char* argv[]){
 	adderInst1.y(shifter1Y);
 	adderInst1.z(incremented_address);
 
-	branch_and_alu_zero.write(branch.read() & alu_zero);
+	//branch_and_alu_zero.write(branch.read() & alu_zero);
 
 	mux muxInst4("muxInst4");
-	muxInst4.n=32;
 	muxInst4.x(incremented_address);
 	muxInst4.y(add2_result);
 	muxInst4.s(branch_and_alu_zero);
@@ -250,16 +248,14 @@ int sc_main(int argc, char* argv[]){
 	adderInst2.y(shifted_immediate);
 	adderInst2.z(add2_result);
 
-
 	shifter shifterInst2("shifterInst2");
 	shifterInst2.n1=26;
 	shifterInst2.n2=28;
 	shifterInst2.x(shifter2X);
 	shifterInst2.y(shifter2Y);
 
-	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
+	//	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
 	mux muxInst5("muxInst5");
-	muxInst5.n=32;
 	muxInst5.x(mux4_result);
 	muxInst5.y(concatenated_pc_and_jump_address);
 	muxInst5.s(jump);
@@ -278,15 +274,69 @@ int sc_main(int argc, char* argv[]){
 	sc_trace(trace_file, en, "en");
 	sc_trace(trace_file, instruction, "instruction");
 	sc_trace(trace_file, last_instr_address, "lastinstructionaddress");
+	sc_trace(trace_file, alu_result, "alu_result");
+	sc_trace(trace_file, reg_write, "reg_write");
 
 
 
+
+
+	//pcInst.current_address = instr_address;
+	opcode.write(instruction.read().range(31, 26));
+	rs.write(instruction.read().range(25, 21));
+	rt.write(instruction.read().range(20, 16));
+	rd.write(instruction.read().range(15, 11));
+	shampt.write(instruction.read().range(10, 6));
+	funct.write(instruction.read().range(5, 0));
+	immediate.write(instruction.read().range(15, 0));
+	jump_address.write(instruction.read().range(25, 0));
+
+	shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
+	shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
+	shifter1Y = "00000000000000000000000000000100";
+
+	instr_address = "00000000000000000000000000000000";
+	read_data_1 = "00000000000000000000000000000000";
+	read_data_2 =  "00000000000000000000000000000000";
+	write_data = "00000000000000000000000000000000";
+	extended_immediate = "00000000000000000000000000000000";
+	shifted_immediate = "00000000000000000000000000000000";
+	alu_in_2 = "00000000000000000000000000000000";
+	alu_result ="00000000000000000000000000000000";
+	last_instr_address = 	"00000000000000000000000000000000";
+	incremented_address = 	"00000000000000000000000000000000";
+	add2_result = 	"00000000000000000000000000000000";
+	mux4_result = 	"00000000000000000000000000000000";
+	concatenated_pc_and_jump_address =	"00000000000000000000000000000000";
+	mem_read_data = "00000000000000000000000000000000";
+
+
+	reg_dest = sc_logic_0;
+	jump = sc_logic_0;
+	branch = sc_logic_0;
+	mem_read = sc_logic_0;
+	mem_to_reg = sc_logic_0;
+	mem_write = sc_logic_0;
+	alu_src = sc_logic_0;
+	reg_write = sc_logic_0;
+	alu_zero = sc_logic_0;
+	branch_and_alu_zero = sc_logic_0;
+
+	//sc_start(10, SC_NS);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
+	en = sc_logic_0;
+	ck = sc_logic_1;
+	sc_start(10,SC_NS);
+	ck = sc_logic_0;
 	sc_start(10,SC_NS);
 	ck = sc_logic_0;
 	sc_start(10,SC_NS);
 	ck = sc_logic_1;
 	sc_start(10,SC_NS);
 	ck = sc_logic_0;
+	//cout << endl <<instr_address;
+	//instr_address = 0x00000000;
 	sc_start(10,SC_NS);
 
 	return 0;

@@ -9,11 +9,14 @@
 #include "pc.h"
 
 inline void pc::pcM(void){
-	address = 0x00000000;
 
-	current_address.write(address.read());
+	//current_address.write(address.read());
+	current_address.write(address);
+	//cout << current_address<< "address";
 	if(ck == sc_logic_0 ){
-		address.write(address_to_load);
+		address = address_to_load;
+
+		//cout << address<< "address2__";
 	}
 }
 /*

@@ -14,9 +14,11 @@
 SC_MODULE(sign_extend){
 	sc_in <sc_lv<16>> x;
 	sc_out <sc_lv<32>> y;
+	sc_lv<32> tempExt;
 
 	void sign_extendM();
 	SC_CTOR(sign_extend){
+		tempExt = "00000000000000000000000000000000";
 		SC_METHOD(sign_extendM);
 		sensitive << x;
 	}

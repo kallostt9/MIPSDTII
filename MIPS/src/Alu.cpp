@@ -46,6 +46,7 @@ inline void Alu::aluM(void) {
 		zero = sc_logic_1;
 	} else
 		zero = sc_logic_0;
+	cout << a << "Input a" << b << "Input b" <<endl;
 }
 /*
 int sc_main(int argc, char* argv[]){
