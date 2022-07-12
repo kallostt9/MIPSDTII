@@ -1,5 +1,5 @@
 $date
-     Jul 12, 2022       04:08:31
+     Jul 12, 2022       04:16:39
 $end
 
 $version
@@ -12,11 +12,12 @@ $end
 
 $scope module SystemC $end
 $var wire    1  aaaaa  mem_write       $end
-$var wire    1  aaaab  en       $end
-$var wire   32  aaaac  instruction [31:0]  $end
-$var wire   32  aaaad  lastinstructionaddress [31:0]  $end
-$var wire   32  aaaae  alu_result [31:0]  $end
-$var wire    1  aaaaf  reg_write       $end
+$var wire   32  aaaab  instruction [31:0]  $end
+$var wire   32  aaaac  lastinstructionaddress [31:0]  $end
+$var wire   32  aaaad  alu_result [31:0]  $end
+$var wire   32  aaaae  alu_in_2 [31:0]  $end
+$var wire   32  aaaaf  alu_in_1 [31:0]  $end
+$var wire    1  aaaag  reg_write       $end
 $upscope $end
 $enddefinitions  $end
 
@@ -26,10 +27,11 @@ $end
 
 $dumpvars
 0aaaaa
-xaaaab
-b100000000010000000000000000111 aaaac
-b10000 aaaad
-b11111111111111111111111111111110 aaaae
-0aaaaf
+b100000000010000000000000000111 aaaab
+b10000 aaaac
+b11111111111111111111111111111110 aaaad
+b11111111111111111111111111111111 aaaae
+b11111111111111111111111111111111 aaaaf
+0aaaag
 $end
 

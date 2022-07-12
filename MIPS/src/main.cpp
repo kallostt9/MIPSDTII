@@ -22,7 +22,6 @@
 #include "main.h"
 
 void main::mainM(void){
-	//instr_address = 0x00000000;
 	switch (s) {
 	case running:
 		en = ck;
@@ -46,31 +45,6 @@ void main::mainM(void){
 		}
 	}
 }
-/*
-void main::mainM(void){
-	switch(s){
-		case running:
-			en = ck;
-			break;
-		default:
-			en = sc_logic_0;
-			break;
-	}
-	if(ck.event() and ck == sc_logic_1){
-		switch(s){
-			case loading:
-				s = running;
-				break;
-			case running:
-				if(instr_address.read().to_uint() > last_instr_address.read().to_uint()){
-					s = done;
-					en = sc_logic_0;
-				}break;
-			default:
-				break;
-		}
-	}
-}*/
 
 int sc_main(int argc, char* argv[]){
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("mainTrace");
@@ -91,6 +65,7 @@ int sc_main(int argc, char* argv[]){
 	sc_signal<sc_logic> reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write, alu_zero, branch_and_alu_zero;
 	sc_signal<sc_logic> en;
 	sc_signal <sc_lv<32>> shifter2X, shifter2Y, shifter1Y;
+
 /*
 	shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
 	shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
@@ -103,12 +78,12 @@ int sc_main(int argc, char* argv[]){
 	en = sc_logic_0;
 	reg_dest = jump = branch = mem_read = mem_to_reg = mem_write = alu_src = reg_write = alu_zero = branch_and_alu_zero = sc_logic_0;
 */
+
 	main mainInst("mainInst");
 	//port binding
 	mainInst.ck(ck);
 	mainInst.instr_address(instr_address);
 	mainInst.last_instr_address(last_instr_address);
-
 
 	/*
 
@@ -160,6 +135,7 @@ int sc_main(int argc, char* argv[]){
 	immediate.write(instruction.read().range(15, 0));
 	jump_address.write(instruction.read().range(25, 0));
 */
+
 	pc pcInst("pcInst");
 	pcInst.ck(en);
 	pcInst.address_to_load(next_address);
@@ -235,8 +211,6 @@ int sc_main(int argc, char* argv[]){
 	adderInst1.y(shifter1Y);
 	adderInst1.z(incremented_address);
 
-	//branch_and_alu_zero.write(branch.read() & alu_zero);
-
 	mux muxInst4("muxInst4");
 	muxInst4.x(incremented_address);
 	muxInst4.y(add2_result);
@@ -254,7 +228,6 @@ int sc_main(int argc, char* argv[]){
 	shifterInst2.x(shifter2X);
 	shifterInst2.y(shifter2Y);
 
-	//	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
 	mux muxInst5("muxInst5");
 	muxInst5.x(mux4_result);
 	muxInst5.y(concatenated_pc_and_jump_address);
@@ -270,18 +243,17 @@ int sc_main(int argc, char* argv[]){
 	memoryInst.read_data(mem_read_data);
 
 	//testbench
+	//trace
 	sc_trace(trace_file, mem_write, "mem_write");
-	sc_trace(trace_file, en, "en");
+	//sc_trace(trace_file, en, "en");
 	sc_trace(trace_file, instruction, "instruction");
 	sc_trace(trace_file, last_instr_address, "lastinstructionaddress");
 	sc_trace(trace_file, alu_result, "alu_result");
+	sc_trace(trace_file, alu_in_2, "alu_in_2");
+	sc_trace(trace_file, read_data_1, "alu_in_1");
 	sc_trace(trace_file, reg_write, "reg_write");
 
-
-
-
-
-	//pcInst.current_address = instr_address;
+	//add standard values
 	opcode.write(instruction.read().range(31, 26));
 	rs.write(instruction.read().range(25, 21));
 	rt.write(instruction.read().range(20, 16));
@@ -321,10 +293,9 @@ int sc_main(int argc, char* argv[]){
 	alu_zero = sc_logic_0;
 	branch_and_alu_zero = sc_logic_0;
 
-	//sc_start(10, SC_NS);
 	branch_and_alu_zero.write(branch.read() & alu_zero.read());
 	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
-	//en = sc_logic_0;
+
 	ck = sc_logic_1;
 	sc_start(10,SC_NS);
 	ck = sc_logic_0;
@@ -334,9 +305,6 @@ int sc_main(int argc, char* argv[]){
 	ck = sc_logic_1;
 	sc_start(10,SC_NS);
 	ck = sc_logic_0;
-	//cout << endl <<instr_address;
-	//instr_address = 0x00000000;
-	//sc_start(10,SC_NS);
 
 	return 0;
 }
