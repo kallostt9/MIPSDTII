@@ -170,8 +170,8 @@ int sc_main(int argc, char* argv[]){
 	adderInst2.z(add2_result);
 
 	shifterSmall shifterInst2("shifterInst2");
-	shifterInst2.n1=26;
-	shifterInst2.n2=28;
+	//shifterInst2.n1=26;
+	//shifterInst2.n2=28;
 	shifterInst2.x(jump_address);
 	shifterInst2.y(shifted_jump_address);
 
@@ -206,7 +206,7 @@ int sc_main(int argc, char* argv[]){
 	last_instr_address = 	"00000000000000000000000000000000";
 	instruction = "00100000000010000000000000000111";
 	//tempop = instruction.read().range(31,26);
-	opcode="000000";
+	opcode="001000";
 	en = sc_logic_0;
 
 	rs = "00000";
@@ -227,7 +227,7 @@ int sc_main(int argc, char* argv[]){
 	//shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
 	//shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
 	adder1Y = "00000000000000000000000000000100";
-
+	write_reg = "01000";
 
 	sc_lv<28> temp1;
 	sc_lv<32> temp2, tempres;
@@ -235,11 +235,11 @@ int sc_main(int argc, char* argv[]){
 	read_data_1 = "00000000000000000000000000000000";
 	read_data_2 =  "00000000000000000000000000000000";
 	write_data = "00000000000000000000000000000000";
-	extended_immediate = "00000000000000000000000000000000";
-	shifted_immediate = "00000000000000000000000000000000";
+	extended_immediate = "00000000000000000000000000000111";
+	shifted_immediate = "00000000000000000000000000011100";
 	alu_in_2 = "00000000000000000000000000000000";
 	alu_result ="00000000000000000000000000000000";
-	next_address = "00000000000000000000000000000001";
+	next_address = "00000000000000000000000000000000";
 
 	incremented_address = 	"00000000000000000000000000000000";
 	add2_result = 	"00000000000000000000000000000000";
@@ -250,13 +250,16 @@ int sc_main(int argc, char* argv[]){
 	alu_op = "00";
 	alu_control_funct = "0010";
 
+	shifted_jump_address = "0000001000000000000000011100";
+
 	temp2 = incremented_address;
-	temp1=shifted_jump_address;
+	//temp1=shifted_jump_address;
+	temp1 = "0000001000000000000000011100";
 
 	tempres.range(31,28) = temp2.range(31, 28);
 	tempres.range(27,0) = temp1.range(27, 0);
 	//concatenated_pc_and_jump_address = tempres;
-	concatenated_pc_and_jump_address = (sc_uint<4>(0), incremented_address.read().range(27,0));
+	concatenated_pc_and_jump_address = (sc_uint<4>(0), temp1.range(27,0));
 
 	reg_dest = sc_logic_0;
 	jump = sc_logic_0;
