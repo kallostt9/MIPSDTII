@@ -14,9 +14,10 @@ inline void Register::registerM(void) {
 	ReadData2 = array_register[ReadRegister2.read().to_uint()];
 	if(sig == sc_logic_0 && RegWrite == sc_logic_1){
 		array_register[WriteRegister.read().to_uint()] = WriteData.read();
-		cout << "trigger" << endl;
+		//cout << "trigger" << endl;
 	}
-	cout << RegWrite << sig << WriteData << ReadRegister1 << ReadRegister2 << WriteRegister << "register" << endl;
+	//cout << RegWrite << sig << WriteData << ReadRegister1 << ReadRegister2 << WriteRegister << "register" << ReadData1 << " RD1 " << ReadData2 << " RD2"<<  endl;
+
 }
 /*
 int sc_main(int argc, char* argv[]){

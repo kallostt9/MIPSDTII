@@ -39,7 +39,7 @@ inline void instructionMemory::instructionMemoryM(void) {
 		last_instr_address = 0x00000000;
 	line.close();
 
-	cout<<instruction<<endl<<read_address << "awdf";
+	//cout<<instruction<< last_instr_address <<read_address << " instruction mem" << endl;
 	instruction = array_data[read_address.read().to_uint()];
 	//cout<<instruction<<"lol";
 }

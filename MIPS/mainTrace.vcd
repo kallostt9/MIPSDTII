@@ -1,5 +1,5 @@
 $date
-     Jul 13, 2022       19:35:25
+     Jul 13, 2022       21:54:36
 $end
 
 $version
@@ -30,9 +30,9 @@ $dumpvars
 0aaaaa
 b100000000010000000000000000111 aaaab
 b10000 aaaac
-b111 aaaad
+b1000100011000 aaaad
 b111 aaaae
-b0 aaaaf
+b1000100010001 aaaaf
 1aaaag
 b0 aaaah
 $end

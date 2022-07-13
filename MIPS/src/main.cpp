@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <systemc.h>
 #include "adder.cpp"
+#include "adderDebug.cpp"
 #include "alu_control.cpp"
 #include "Alu.cpp"
 #include "control.cpp"
@@ -153,12 +154,12 @@ int sc_main(int argc, char* argv[]){
 	shifterInst1.x(extended_immediate);
 	shifterInst1.y(shifted_immediate);
 
-	adder adderInst1("adderInst1");
+	adderDebug adderInst1("adderInst1");
 	adderInst1.x(instr_address);
 	adderInst1.y(adder1Y);
 	adderInst1.z(incremented_address);
 
-	mux muxInst4("muxInst4");
+	muxDebug muxInst4("muxInst4");
 	muxInst4.x(incremented_address);
 	muxInst4.y(add2_result);
 	muxInst4.s(branch_and_alu_zero);
@@ -175,7 +176,7 @@ int sc_main(int argc, char* argv[]){
 	shifterInst2.x(jump_address);
 	shifterInst2.y(shifted_jump_address);
 
-	muxDebug muxInst5("muxInst5");
+	mux muxInst5("muxInst5");
 	muxInst5.x(mux4_result);
 	muxInst5.y(concatenated_pc_and_jump_address);
 	muxInst5.s(jump);
@@ -203,7 +204,7 @@ int sc_main(int argc, char* argv[]){
 
 //	//add standard values
 	instr_address = "00000000000000000000000000000000";
-	last_instr_address = 	"00000000000000000000000000000000";
+	last_instr_address = 	"00000000000000000000000000010000";
 	instruction = "00100000000010000000000000000111";
 	//tempop = instruction.read().range(31,26);
 	opcode="001000";
@@ -232,17 +233,17 @@ int sc_main(int argc, char* argv[]){
 	sc_lv<28> temp1;
 	sc_lv<32> temp2, tempres;
 
-	read_data_1 = "00000000000000000000000000000000";
-	read_data_2 =  "00000000000000000000000000000000";
-	write_data = "00000000000000000000000000000000";
+	read_data_1 = "00000000000000000001000100010001";
+	read_data_2 =  "00000000000100010000000000010001";
+	write_data = "00000000000100010001000100100010";
 	extended_immediate = "00000000000000000000000000000111";
 	shifted_immediate = "00000000000000000000000000011100";
-	alu_in_2 = "00000000000000000000000000000000";
-	alu_result ="00000000000000000000000000000000";
+	alu_in_2 = "00000000000100010000000000010001";
+	alu_result ="00000000000100010001000100100010";
 	next_address = "00000000000000000000000000000000";
 
-	incremented_address = 	"00000000000000000000000000000000";
-	add2_result = 	"00000000000000000000000000000000";
+	incremented_address = 	"00000000000000000000000000000100";
+	add2_result = 	"00000000000000000000000000011100";
 	mux4_result = 	"00000000000000000000000000000000";
 	//concatenated_pc_and_jump_address =	"00000000000000000000000000000000";
 	//tempop.range(27,0) = shifter2Y.read().range(27, 0);
@@ -255,6 +256,7 @@ int sc_main(int argc, char* argv[]){
 	temp2 = incremented_address;
 	//temp1=shifted_jump_address;
 	temp1 = "0000001000000000000000011100";
+	//temp1 =	"0000000000000000000000000000";
 
 	tempres.range(31,28) = temp2.range(31, 28);
 	tempres.range(27,0) = temp1.range(27, 0);

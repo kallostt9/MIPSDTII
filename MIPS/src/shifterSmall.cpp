@@ -14,7 +14,7 @@ inline void shifterSmall::shifterSmallM(void){
 	temp.range(n2-1, k) = temp2.range(n1-1,0);
 	temp.range(1,0) = 0;
 	y = temp;
-	cout << y << " y " << x << " x " << " shifterSmall " << endl;
+	//cout << y << " y " << x << " x " << " shifterSmall " << endl;
 }
 /*
 int sc_main(int argc, char* argv[]){

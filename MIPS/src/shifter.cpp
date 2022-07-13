@@ -13,7 +13,7 @@ inline void shifter::shifterM(void){
 	temp.range(n2-1, k) = temp.range(n1-1,0);
 	temp.range(1,0) = 0;
 	y = temp;
-	cout << y << " y " << x << " x " << " shifter " << endl;
+	//cout << y << " y " << x << " x " << " shifter " << endl;
 }
 /*
 int sc_main(int argc, char* argv[]){

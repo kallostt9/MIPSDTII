@@ -11,6 +11,7 @@
 
 inline void adder::adderM(void) {
 	z.write( y.read().to_uint()+x.read().to_uint());
+	//cout << x << " " <<  y << " " << z << " adder" << endl;
 }
 /*
 int sc_main(int argc, char* argv[]){

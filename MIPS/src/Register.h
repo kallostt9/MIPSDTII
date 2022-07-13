@@ -23,8 +23,8 @@ SC_MODULE(Register){
 	void registerM();
 
 	SC_CTOR(Register){
-		array_register[0] = 0x00000000;	// $zero
-		array_register[1] = 0x11111111;	// $at
+		array_register[0] = 0x00001111;	// $zero
+		array_register[1] = 0x00110011;	// $at
 		array_register[2] = 0x22222222;	// $v0
 		array_register[3] = 0x33333333;	// $v1
 		array_register[4] = 0x44444444;	// $a0

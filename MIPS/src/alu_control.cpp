@@ -20,7 +20,7 @@
 #include "alu_control.h"
 
 inline void Alu_control::alu_controlM (void){
-	//cout << alu_op.read().to_uint() << endl;
+
 	switch (alu_op.read().to_uint()) {
 		case 0x0:
 			alu_control_funct = "0010";
@@ -56,7 +56,7 @@ inline void Alu_control::alu_controlM (void){
 		default:
 			alu_control_funct = "0000";
 			break;
-	}
+	}cout << alu_op << alu_control_funct << funct << "alu control" << endl;
 }
 /*
 int sc_main(int argc, char* argv[]){

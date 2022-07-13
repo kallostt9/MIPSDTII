@@ -12,7 +12,7 @@ inline void muxDebug::muxDebugM(void){
 	if(s == sc_logic_0){
 		z.write(x.read());
 	}else z.write(y.read());
-	cout << endl << x.read() << " x " << y.read() << " y " << z.read()<< " z "<< s.read()<< " s " << " muxDebug check for mistakes" << endl;
+	//cout << x.read() << " x " << y.read() << " y " << z.read()<< " z "<< s.read()<< " s " << " muxDebug check for mistakes" << endl;
 }
 
 
