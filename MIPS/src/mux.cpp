@@ -12,7 +12,7 @@ inline void mux::muxM(void){
 	if(s == sc_logic_0){
 		z.write(x.read());
 	}else z.write(y.read());
-	cout << x.read() << " x " << y.read() << " y " << z.read()<< " z "<<" muxcheck for mistakes" << endl;
+	cout << x.read() << " x " << y.read() << " y " << z.read()<< " z "<< s.read() << " s "<<" muxcheck for mistakes" << endl;
 	//cout << y.read() << " muxY check for mistakes" << endl;
 }
 /*
