@@ -14,6 +14,7 @@
 #include "instruction_memory.cpp"
 #include "memory.cpp"
 #include "mux.cpp"
+#include "muxDebug.cpp"
 #include "mux5bit.cpp"
 #include "pc.cpp"
 #include "Register.cpp"
@@ -233,7 +234,7 @@ int sc_main(int argc, char* argv[]){
 	shifterInst2.x(shifter2X);
 	shifterInst2.y(shifter2Y);
 
-	mux muxInst5("muxInst5");
+	muxDebug muxInst5("muxInst5");
 	muxInst5.x(mux4_result);
 	muxInst5.y(concatenated_pc_and_jump_address);
 	muxInst5.s(jump);
@@ -257,26 +258,38 @@ int sc_main(int argc, char* argv[]){
 	sc_trace(trace_file, alu_in_2, "alu_in_2");
 	sc_trace(trace_file, read_data_1, "alu_in_1");
 	sc_trace(trace_file, reg_write, "reg_write");
+	sc_trace(trace_file, rs, "rs");
 
 //	//add standard values
 	instr_address = "00000000000000000000000000000000";
 	last_instr_address = 	"00000000000000000000000000000000";
-	sc_signal <sc_lv<6>> tempop;
-	tempop = instruction.read().range(31,26);
+	instruction = "00100000000010000000000000000111";
+	//tempop = instruction.read().range(31,26);
 	opcode="000000";
 	en = sc_logic_0;
-	rs.write(instruction.read().range(25, 21));
-	rt.write(instruction.read().range(20, 16));
-	rd.write(instruction.read().range(15, 11));
-	shampt.write(instruction.read().range(10, 6));
-	funct.write(instruction.read().range(5, 0));
-	immediate.write(instruction.read().range(15, 0));
-	jump_address.write(instruction.read().range(25, 0));
+
+	rs = "00000";
+	rt = "01000";
+	rd = "00000";
+	shampt = "00000";
+	funct = "000111";
+	immediate = "0000000000000111";
+	jump_address = "00000010000000000000000111";
+//	rs.write(instruction.read().range(25, 21));
+//	rt.write(instruction.read().range(20, 16));
+//	rd.write(instruction.read().range(15, 11));
+//	shampt.write(instruction.read().range(10, 6));
+//	funct.write(instruction.read().range(5, 0));
+//	immediate.write(instruction.read().range(15, 0));
+//	jump_address.write(instruction.read().range(25, 0));
 
 	shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
 	shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
 	shifter1Y = "00000000000000000000000000000100";
 
+
+	sc_lv<32> temp1, temp2, tempres;
+	temp1 = "00000000000000000000000000000000";
 
 	read_data_1 = "00000000000000000000000000000000";
 	read_data_2 =  "00000000000000000000000000000000";
@@ -285,12 +298,21 @@ int sc_main(int argc, char* argv[]){
 	shifted_immediate = "00000000000000000000000000000000";
 	alu_in_2 = "00000000000000000000000000000000";
 	alu_result ="00000000000000000000000000000000";
+	next_address = "00000000000000000000000000000001";
 
 	incremented_address = 	"00000000000000000000000000000000";
+	temp2 = incremented_address;
+	temp1=shifter2Y;
 	add2_result = 	"00000000000000000000000000000000";
 	mux4_result = 	"00000000000000000000000000000000";
 	concatenated_pc_and_jump_address =	"00000000000000000000000000000000";
+	tempres.range(31,28) = temp2.range(31, 28);
+	tempres.range(27,0) = temp1.range(27, 0);
+	//tempop.range(27,0) = shifter2Y.read().range(27, 0);
+	concatenated_pc_and_jump_address = tempres;
 	mem_read_data = "00000000000000000000000000000000";
+	alu_op = "00";
+	alu_control_funct = "0010";
 
 	reg_dest = sc_logic_0;
 	jump = sc_logic_0;
@@ -306,7 +328,7 @@ int sc_main(int argc, char* argv[]){
 	//ck = clock
 
 	branch_and_alu_zero.write(branch.read() & alu_zero.read());
-	concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
+	//concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
 
 	//ck = sc_logic_1;
 	sc_start(100, SC_NS);
