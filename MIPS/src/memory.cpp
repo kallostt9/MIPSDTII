@@ -15,9 +15,11 @@ inline void memory::memoryM(void){
 	}else read_data = 0x00000000;
 	if(ck == sc_logic_0 and ck.event()){
 		if(MemWrite == sc_logic_1){
+			//cout << "flag2";
 			array_memory[address.read().to_uint()] = write_data.read();
 		}
 	}
+	//cout << address << " "<< write_data << " "<< MemWrite << " "<< MemRead << " "<< read_data << " Memory";
 }
 /*
 int sc_main(int argc, char* argv[]){

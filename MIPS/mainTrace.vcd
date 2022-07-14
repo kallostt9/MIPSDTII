@@ -1,5 +1,5 @@
 $date
-     Jul 13, 2022       21:54:36
+     Jul 14, 2022       02:27:05
 $end
 
 $version
@@ -19,6 +19,7 @@ $var wire   32  aaaae  alu_in_2 [31:0]  $end
 $var wire   32  aaaaf  alu_in_1 [31:0]  $end
 $var wire    1  aaaag  reg_write       $end
 $var wire    5  aaaah  rs [4:0]  $end
+$var wire    6  aaaai  opcode [5:0]  $end
 $upscope $end
 $enddefinitions  $end
 
@@ -35,6 +36,7 @@ b111 aaaae
 b1000100010001 aaaaf
 1aaaag
 b0 aaaah
+b1000 aaaai
 $end
 
 #2

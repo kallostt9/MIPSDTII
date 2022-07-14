@@ -50,7 +50,7 @@ void main::mainM(void){
 				break;
 		}
 	}
-}
+}/*
 int sc_main(int argc, char* argv[]){
 	 sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated", sc_core::SC_DO_NOTHING );
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("mainTrace");
@@ -201,6 +201,7 @@ int sc_main(int argc, char* argv[]){
 	sc_trace(trace_file, read_data_1, "alu_in_1");
 	sc_trace(trace_file, reg_write, "reg_write");
 	sc_trace(trace_file, rs, "rs");
+	sc_trace(trace_file, opcode, "opcode");
 
 //	//add standard values
 	instr_address = "00000000000000000000000000000000";
@@ -208,6 +209,11 @@ int sc_main(int argc, char* argv[]){
 	instruction = "00100000000010000000000000000111";
 	//tempop = instruction.read().range(31,26);
 	opcode="001000";
+	//opcode = instruction.read().range(31,26);
+	//if(opcode.read() == "XXXXXX"){
+	////		opcode = "001000";
+	//		cout << "flag";
+	//	}
 	en = sc_logic_0;
 
 	rs = "00000";
@@ -217,7 +223,7 @@ int sc_main(int argc, char* argv[]){
 	funct = "000111";
 	immediate = "0000000000000111";
 	jump_address = "00000010000000000000000111";
-//	rs.write(instruction.read().range(25, 21));
+	//rs.write(instruction.read().range(25, 21));
 //	rt.write(instruction.read().range(20, 16));
 //	rd.write(instruction.read().range(15, 11));
 //	shampt.write(instruction.read().range(10, 6));
@@ -240,7 +246,7 @@ int sc_main(int argc, char* argv[]){
 	shifted_immediate = "00000000000000000000000000011100";
 	alu_in_2 = "00000000000100010000000000010001";
 	alu_result ="00000000000100010001000100100010";
-	next_address = "00000000000000000000000000000000";
+	next_address = "0000000000000000000000000000000";
 
 	incremented_address = 	"00000000000000000000000000000100";
 	add2_result = 	"00000000000000000000000000011100";
@@ -281,9 +287,11 @@ int sc_main(int argc, char* argv[]){
 	//concatenated_pc_and_jump_address.write(((incremented_address.read().range(31,28) ^ 0x00000000)^(shifted_jump_address.read().range(27,0) ^ 0x00000000)));
 
 	//ck = sc_logic_1;
-	sc_start(100, SC_NS);
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31, 26);
+	sc_start(10, SC_NS);
 
 
 	return 0;
 }
-
+*/

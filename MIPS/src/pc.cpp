@@ -16,7 +16,7 @@ inline void pc::pcM(void){
 	if(ck == sc_logic_0 ){
 		address = address_to_load;
 
-		//cout << address<< "address2__";
+		//cout << address<< " " << address_to_load<< " " << current_address<<" pc";
 	}
 }
 /*
