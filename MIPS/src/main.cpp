@@ -286,19 +286,17 @@ int sc_main(int argc, char* argv[]){
 
 	en = sc_logic_0;
 
-	opcode="000000";
+	opcode="001000";
 	rs = "00000";
-	rt = "00000";
+	rt = "00001";
 	rd = "00000";
 	shampt = "00000";
-	funct = "000000";
+	funct = "000111";
 	immediate = "0000000000000111";
 	jump_address = "00000010000000000000000111";
-	write_reg = "01000";
-	alu_op = "00";
-	alu_control_funct = "0000";
-
 	adder1Y = "00000000000000000000000000000001";
+	write_reg = "01000";
+
 
 	read_data_1 = "00000000000000000000000000000000";
 	read_data_2 =  "00000000000000000000000000000000";
@@ -314,6 +312,8 @@ int sc_main(int argc, char* argv[]){
 	mux4_result = 	"00000000000000000000000000000000";
 	concatenated_pc_and_jump_address = "00000000000000000000000000000000";
 	mem_read_data = "00000000000000000000000000000000";
+	alu_op = "00";
+	alu_control_funct = "0000";
 
 	shifted_jump_address = "0000000000000000000000000000";
 
