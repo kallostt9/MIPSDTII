@@ -50,13 +50,13 @@ void main::mainM(void){
 				break;
 		}
 	}
-}/*
+}
 int sc_main(int argc, char* argv[]){
 	 sc_core::sc_report_handler::set_actions( "/IEEE_Std_1666/deprecated", sc_core::SC_DO_NOTHING );
 	sc_trace_file *trace_file = sc_create_vcd_trace_file("mainTrace");
 	trace_file->set_time_unit(1, SC_NS);
 	//ports
-	sc_clock ck("ck", SC_NS&10, 0.5, 0, true);
+	sc_clock ck("ck", SC_NS&2, 0.5, 0, true);
 	//sc_signal<sc_logic> ck;
 	sc_signal<sc_lv<32>> instr_address, next_address, instruction;
 	sc_signal<sc_lv<32>> read_data_1, read_data_2, write_data, extended_immediate, shifted_immediate, alu_in_2, alu_result,
@@ -194,19 +194,52 @@ int sc_main(int argc, char* argv[]){
 	//trace
 	sc_trace(trace_file, mem_write, "mem_write");
 	//sc_trace(trace_file, en, "en");
+	sc_trace(trace_file, instr_address, "instr_address");
+	sc_trace(trace_file, next_address, "next_address");
 	sc_trace(trace_file, instruction, "instruction");
-	sc_trace(trace_file, last_instr_address, "lastinstructionaddress");
-	sc_trace(trace_file, alu_result, "alu_result");
+	sc_trace(trace_file, read_data_1, "read_data_1");
+	sc_trace(trace_file, read_data_2, "read_data_2");
+	sc_trace(trace_file, write_data, "write_data");
+	sc_trace(trace_file, extended_immediate, "extended_immediate");
+	sc_trace(trace_file, shifted_immediate, "shifted_immediate");
 	sc_trace(trace_file, alu_in_2, "alu_in_2");
-	sc_trace(trace_file, read_data_1, "alu_in_1");
-	sc_trace(trace_file, reg_write, "reg_write");
-	sc_trace(trace_file, rs, "rs");
+	sc_trace(trace_file, alu_result, "alu_result");
+	sc_trace(trace_file, last_instr_address, "last_instr_address");
+	sc_trace(trace_file, incremented_address, "incremented_address");
+	sc_trace(trace_file, add2_result, "add2_result");
+	sc_trace(trace_file, mux4_result, "mux4_result");
+	sc_trace(trace_file, concatenated_pc_and_jump_address, "concatenated_pc_and_jump_address");
+	sc_trace(trace_file, mem_read_data, "mem_read_data");
+	sc_trace(trace_file, shifted_jump_address, "shifted_jump_address");
+	sc_trace(trace_file, jump_address, "jump_address");
+	sc_trace(trace_file, immediate, "immediate");
 	sc_trace(trace_file, opcode, "opcode");
+	sc_trace(trace_file, funct, "funct");
+	sc_trace(trace_file, rs, "rs");
+	sc_trace(trace_file, rt, "rt");
+	sc_trace(trace_file, rd, "rd");
+	sc_trace(trace_file, shampt, "shampt");
+	sc_trace(trace_file, write_reg, "write_reg");
+	sc_trace(trace_file, alu_control_funct, "alu_control_funct");
+	sc_trace(trace_file, alu_op, "alu_op");
+	sc_trace(trace_file, reg_dest, "reg_dest");
+	sc_trace(trace_file, jump, "jump");
+	sc_trace(trace_file, branch, "branch");
+	sc_trace(trace_file, mem_read, "mem_read");
+	sc_trace(trace_file, mem_to_reg, "mem_to_reg");
+	sc_trace(trace_file, mem_write, "mem_write");
+	sc_trace(trace_file, alu_src, "alu_src");
+	sc_trace(trace_file, reg_write, "reg_write");
+	sc_trace(trace_file, alu_zero, "alu_zero");
+	sc_trace(trace_file, branch_and_alu_zero, "branch_and_alu_zero");
+	sc_trace(trace_file, en, "en");
+	sc_trace(trace_file, adder1Y, "adder1Y");
 
 //	//add standard values
 	instr_address = "00000000000000000000000000000000";
 	last_instr_address = 	"00000000000000000000000000010000";
-	instruction = "00100000000010000000000000000111";
+//	instruction = "00100000000010000000000000000111";
+	instruction = "00000000000000000000000000000000";
 	//tempop = instruction.read().range(31,26);
 	opcode="001000";
 	//opcode = instruction.read().range(31,26);
@@ -217,7 +250,7 @@ int sc_main(int argc, char* argv[]){
 	en = sc_logic_0;
 
 	rs = "00000";
-	rt = "01000";
+	rt = "00001";
 	rd = "00000";
 	shampt = "00000";
 	funct = "000111";
@@ -233,7 +266,7 @@ int sc_main(int argc, char* argv[]){
 
 	//shifter2X.write(0x00000000 ^ jump_address.read().range(25,0));
 	//shifter2Y.write(0x00000000 ^ shifted_jump_address.read().range(27, 0));
-	adder1Y = "00000000000000000000000000000100";
+	adder1Y = "00000000000000000000000000000001";
 	write_reg = "01000";
 
 	sc_lv<28> temp1;
@@ -245,10 +278,11 @@ int sc_main(int argc, char* argv[]){
 	extended_immediate = "00000000000000000000000000000111";
 	shifted_immediate = "00000000000000000000000000011100";
 	alu_in_2 = "00000000000100010000000000010001";
-	alu_result ="00000000000100010001000100100010";
-	next_address = "0000000000000000000000000000000";
+	alu_result ="00000000000000000000000000000000";
+	//alu_result ="00000000000100010001000100100010";
+	next_address = "000000000000000000000000000000000";
 
-	incremented_address = 	"00000000000000000000000000000100";
+	incremented_address = 	"00000000000000000000000000000001";
 	add2_result = 	"00000000000000000000000000011100";
 	mux4_result = 	"00000000000000000000000000000000";
 	//concatenated_pc_and_jump_address =	"00000000000000000000000000000000";
@@ -288,10 +322,118 @@ int sc_main(int argc, char* argv[]){
 
 	//ck = sc_logic_1;
 	sc_start(1, SC_NS);
-	opcode = instruction.read().range(31, 26);
-	sc_start(10, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(1, SC_NS);
+	opcode = instruction.read().range(31,26);
+	rt = instruction.read().range(25,21);
+	rt = instruction.read().range(20,16);
+	rd = instruction.read().range(15,11);
+	shampt = instruction.read().range(10,6);
+	funct = instruction.read().range(5,0);
+	immediate = instruction.read().range(15,0);
+	jump_address = instruction.read().range(25,0);
+	branch_and_alu_zero.write(branch.read() & alu_zero.read());
+	concatenated_pc_and_jump_address = (incremented_address.read().range(31,28), shifted_jump_address.read().range(27,0));
+	sc_start(100, SC_NS);
 
 
 	return 0;
 }
-*/
+

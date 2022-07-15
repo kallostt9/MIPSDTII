@@ -33,7 +33,8 @@ inline void instructionMemory::instructionMemoryM(void) {
 	}
 
 	if (j >= 1) {
-		last_instr_address = (sc_lv<32>)((uint)(j*4));
+		//last_instr_address = (sc_lv<32>)((uint)(j*4));
+		last_instr_address = (sc_lv<32>)((uint)(j));
 		//cout << last_instr_address<<endl;
 	} else
 		last_instr_address = 0x00000000;

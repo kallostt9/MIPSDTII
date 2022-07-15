@@ -8,6 +8,8 @@
 #include "Alu.h"
 
 inline void Alu::aluM(void) {
+	//cout << a << " Input a " << b << " Input b ";
+	//cout << alu_result << " Output "<< alu_control.read().to_uint()<< " alu_control "<< zero << " zero "<< endl;
 	switch (alu_control.read().to_uint()){
 		case 0x0:
 			alu_result.write((a.read() & b.read()));
@@ -46,7 +48,6 @@ inline void Alu::aluM(void) {
 		zero = sc_logic_1;
 	} else
 		zero = sc_logic_0;
-	cout << a << " Input a " << b << " Input b " << alu_result << " Output "<< alu_control.read().to_uint()<< " alu_control "<< zero << " zero "<< endl;
 }
 /*
 int sc_main(int argc, char* argv[]){

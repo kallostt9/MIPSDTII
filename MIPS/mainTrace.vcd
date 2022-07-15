@@ -1,5 +1,5 @@
 $date
-     Jul 14, 2022       02:27:05
+     Jul 15, 2022       02:50:44
 $end
 
 $version
@@ -12,14 +12,46 @@ $end
 
 $scope module SystemC $end
 $var wire    1  aaaaa  mem_write       $end
-$var wire   32  aaaab  instruction [31:0]  $end
-$var wire   32  aaaac  lastinstructionaddress [31:0]  $end
-$var wire   32  aaaad  alu_result [31:0]  $end
-$var wire   32  aaaae  alu_in_2 [31:0]  $end
-$var wire   32  aaaaf  alu_in_1 [31:0]  $end
-$var wire    1  aaaag  reg_write       $end
-$var wire    5  aaaah  rs [4:0]  $end
-$var wire    6  aaaai  opcode [5:0]  $end
+$var wire   32  aaaab  instr_address [31:0]  $end
+$var wire   32  aaaac  next_address [31:0]  $end
+$var wire   32  aaaad  instruction [31:0]  $end
+$var wire   32  aaaae  read_data_1 [31:0]  $end
+$var wire   32  aaaaf  read_data_2 [31:0]  $end
+$var wire   32  aaaag  write_data [31:0]  $end
+$var wire   32  aaaah  extended_immediate [31:0]  $end
+$var wire   32  aaaai  shifted_immediate [31:0]  $end
+$var wire   32  aaaaj  alu_in_2 [31:0]  $end
+$var wire   32  aaaak  alu_result [31:0]  $end
+$var wire   32  aaaal  last_instr_address [31:0]  $end
+$var wire   32  aaaam  incremented_address [31:0]  $end
+$var wire   32  aaaan  add2_result [31:0]  $end
+$var wire   32  aaaao  mux4_result [31:0]  $end
+$var wire   32  aaaap  concatenated_pc_and_jump_address [31:0]  $end
+$var wire   32  aaaaq  mem_read_data [31:0]  $end
+$var wire   28  aaaar  shifted_jump_address [27:0]  $end
+$var wire   26  aaaas  jump_address [25:0]  $end
+$var wire   16  aaaat  immediate [15:0]  $end
+$var wire    6  aaaau  opcode [5:0]  $end
+$var wire    6  aaaav  funct [5:0]  $end
+$var wire    5  aaaaw  rs [4:0]  $end
+$var wire    5  aaaax  rt [4:0]  $end
+$var wire    5  aaaay  rd [4:0]  $end
+$var wire    5  aaaaz  shampt [4:0]  $end
+$var wire    5  aaaba  write_reg [4:0]  $end
+$var wire    4  aaabb  alu_control_funct [3:0]  $end
+$var wire    2  aaabc  alu_op [1:0]  $end
+$var wire    1  aaabd  reg_dest       $end
+$var wire    1  aaabe  jump       $end
+$var wire    1  aaabf  branch       $end
+$var wire    1  aaabg  mem_read       $end
+$var wire    1  aaabh  mem_to_reg       $end
+$var wire    1  aaabi  mem_write       $end
+$var wire    1  aaabj  alu_src       $end
+$var wire    1  aaabk  reg_write       $end
+$var wire    1  aaabl  alu_zero       $end
+$var wire    1  aaabm  branch_and_alu_zero       $end
+$var wire    1  aaabn  en       $end
+$var wire   32  aaabo  adder1Y [31:0]  $end
 $upscope $end
 $enddefinitions  $end
 
@@ -29,19 +61,171 @@ $end
 
 $dumpvars
 0aaaaa
-b100000000010000000000000000111 aaaab
-b10000 aaaac
-b1000100011000 aaaad
-b111 aaaae
-b1000100010001 aaaaf
-1aaaag
-b0 aaaah
-b1000 aaaai
+b0 aaaab
+b1 aaaac
+b100000000010000000000000000111 aaaad
+b1000100010001 aaaae
+b100010001000100100010 aaaaf
+b1000100011000 aaaag
+b111 aaaah
+b11100 aaaai
+b111 aaaaj
+b1000100011000 aaaak
+b100 aaaal
+b1 aaaam
+b11101 aaaan
+b1 aaaao
+b1000000000000000011100 aaaap
+b0 aaaaq
+b1000000000000000011100 aaaar
+b10000000000000000111 aaaas
+b111 aaaat
+b1000 aaaau
+b111 aaaav
+b0 aaaaw
+b1 aaaax
+b0 aaaay
+b0 aaaaz
+b1 aaaba
+b10 aaabb
+b0 aaabc
+0aaabd
+0aaabe
+0aaabf
+0aaabg
+0aaabh
+0aaabi
+1aaabj
+1aaabk
+0aaabl
+0aaabm
+0aaabn
+b1 aaabo
 $end
 
+#1
+b10001000100010001000100010001000 aaaaf
+b1000 aaaax
+b1000 aaaba
+
 #2
-b100000000010010000000000001000 aaaab
+b1 aaaab
+b10 aaaac
+b100000000010010000000000000110 aaaad
+b1000100011000 aaaaf
+b10 aaaam
+b11110 aaaan
+b10 aaaao
+1aaabn
+
+#3
+b1000100010010 aaaag
+b1 aaaah
+b100 aaaai
+b1 aaaaj
+b1000100010010 aaaak
+b110 aaaan
+b1001000000000000011000 aaaar
+b10010000000000000110 aaaas
+b110 aaaat
+b110 aaaav
+b1001 aaaax
+b1001 aaaba
+0aaabn
 
 #4
-b0 aaaab
+b10 aaaab
+b11 aaaac
+b10101000010010000000000000010 aaaad
+b1000100010010 aaaaf
+b11 aaaam
+b111 aaaan
+b11 aaaao
+b1001000000000000011000 aaaap
+1aaabn
+
+#5
+b0 aaaag
+b11 aaaah
+b1100 aaaai
+b1000100010010 aaaaj
+b0 aaaak
+b1111 aaaan
+b100001001000000000000001000 aaaar
+b1000010010000000000000010 aaaas
+b10 aaaat
+b101 aaaau
+b10 aaaav
+b111 aaabb
+b11 aaabc
+1aaabf
+0aaabj
+0aaabk
+0aaabn
+
+#6
+b11 aaaab
+b100 aaaac
+b100000000010000000000000001000 aaaad
+b100 aaaam
+b10000 aaaan
+b100 aaaao
+b100001001000000000000001000 aaaap
+1aaabn
+
+#7
+b0 aaaaf
+b1000100011100 aaaag
+b1011 aaaah
+b101100 aaaai
+b1011 aaaaj
+b1000100011100 aaaak
+b110000 aaaan
+b1000000000000000100000 aaaar
+b10000000000000001000 aaaas
+b1000 aaaat
+b1000 aaaau
+b1000 aaaav
+b1000 aaaax
+b1000 aaaba
+b10 aaabb
+b0 aaabc
+0aaabf
+1aaabj
+1aaabk
+1aaabl
+0aaabn
+
+#8
+b100 aaaab
+b101 aaaac
+b100000000010010000000000001000 aaaad
+b1000100011100 aaaaf
+b101 aaaam
+b110001 aaaan
+b101 aaaao
+b1000000000000000100000 aaaap
+1aaabn
+
+#9
+b1000100010010 aaaaf
+b1001000000000000100000 aaaar
+b10010000000000001000 aaaas
+b1001 aaaax
+b1001 aaaba
+0aaabn
+
+#10
+b101 aaaab
+b110 aaaac
+b0 aaaad
+b1000100011100 aaaaf
+b110 aaaam
+b110010 aaaan
+b110 aaaao
+b1001000000000000100000 aaaap
+1aaabn
+
+#11
+0aaabn
 

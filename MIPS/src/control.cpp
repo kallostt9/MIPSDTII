@@ -98,7 +98,7 @@ inline void control::controlM (void){
 			reg_write = sc_logic_0;
 			alu_op = "00";
 	}
-	cout << opcode << reg_dest << jump<<branch <<mem_read << mem_to_reg<<mem_write << alu_src<<reg_write <<alu_op << "control" << endl;
+	//cout << opcode << reg_dest << jump<<branch <<mem_read << mem_to_reg<<mem_write << alu_src<<reg_write <<alu_op << "control" << endl;
 //			sc_in <sc_lv<6>> opcode;
 //	sc_out <sc_logic> reg_dest, jump, branch, mem_read, mem_to_reg, mem_write, alu_src, reg_write;
 //	sc_out <sc_lv<2>> alu_op;

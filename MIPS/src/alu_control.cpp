@@ -56,7 +56,7 @@ inline void Alu_control::alu_controlM (void){
 		default:
 			alu_control_funct = "0000";
 			break;
-	}cout << alu_op << alu_control_funct << funct << "alu control" << endl;
+	}//cout << alu_op << alu_control_funct << funct << "alu control" << endl;
 }
 /*
 int sc_main(int argc, char* argv[]){
